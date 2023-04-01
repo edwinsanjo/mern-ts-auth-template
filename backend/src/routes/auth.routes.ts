@@ -35,7 +35,7 @@ router.post("/register", async (req: Request, res: Response) => {
           id: user.id,
           email: user.email,
           name: user.name,
-          isAdmin: user.admin,
+          admin: user.admin,
         },
       };
       jwt.sign(
@@ -80,7 +80,7 @@ router.post("/login", async (req: Request, res: Response) => {
           id: user.id,
           email: user.email,
           name: user.name,
-          isAdmin: user.admin,
+          admin: user.admin,
         },
       };
       jwt.sign(
@@ -109,7 +109,7 @@ router.post("/login", async (req: Request, res: Response) => {
 
 router.get("/getuserdata", verifyUser, async (req: Request, res: Response) => {
   try {
-    const user = await userModel.findById(req.user.id).select("-password");
+    const user = req.user;
     res.json({ user });
   } catch (error) {
     res.status(500).send("Internal Server Error. Please Try again later.");
