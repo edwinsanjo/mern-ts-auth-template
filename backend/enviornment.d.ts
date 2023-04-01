@@ -12,8 +12,6 @@ declare global {
       MONGO_URI: string;
       JWT_SECRET: string;
       JWT_EXPIRATION: number;
-      JWT_REFRESH_EXPIRATION: number;
-      NODE_ENV: "production" | "development";
     }
   }
   namespace Express {
