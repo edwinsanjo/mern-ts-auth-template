@@ -8,5 +8,4 @@ router.get("/", verifyUser, (req: Request, res: Response) => {
   res.send("Authenticated as User");
 });
 
-
 export default router;

@@ -2,12 +2,14 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { Router } from './Router'
 import './index.css'
-import { BrowserRouter } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+import { AuthProvider } from "./context/authContext";
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <AuthProvider>
       <Router />
-    </BrowserRouter>
+    </AuthProvider>
   </React.StrictMode>,
 )
