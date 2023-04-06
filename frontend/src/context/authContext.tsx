@@ -17,7 +17,8 @@ function AuthProvider({ children }) {
     useEffect(() => {
         const token = localStorage.getItem("token")
         if (token) {
-            console.log(token);
+            if (user.isLoggedIn === true) return
+
 
             axios.defaults.headers.common['x-auth-token'] = token;
             axios.get("/auth/getuserdata").then((data) => {
@@ -26,7 +27,6 @@ function AuthProvider({ children }) {
                     token: token,
                     user: data.data.user,
                 })
-                console.log("nic");
             }, (err) => {
                 toast.error("Authentication error Please Relogin")
             })

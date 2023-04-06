@@ -5,9 +5,11 @@ import { HomePage } from "./pages/HomePage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { LoginPage } from "./pages/LoginPage"
 import { RegisterPage } from "./pages/RegisterPage"
-import { Logout} from "./pages/Logout"
+import { Logout } from "./pages/Logout"
+import { ProfilePage } from "./pages/ProfilePage"
 
 export const Router = () => {
+
   return (
     <div>
       <BrowserRouter>
@@ -16,7 +18,8 @@ export const Router = () => {
           <Route path="/*" element={<NotFoundPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/logout" element={ <Logout/>} />
+          <Route path="/logout" element={<Logout />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer
@@ -30,7 +33,7 @@ export const Router = () => {
         draggable
         pauseOnHover
         theme="light"
-        />
-        </div>
+      />
+    </div>
   )
 };

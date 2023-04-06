@@ -38,18 +38,10 @@ router.post("/register", async (req: Request, res: Response) => {
           admin: user.admin,
         },
       };
-      jwt.sign(
-        payload,
-        process.env.JWT_SECRET,
-        { expiresIn: process.env.JWT_EXPIRATION },
-        (err, token) => {
-          if (err)
-            return res
-              .status(500)
-              .json({ error: "Internal server error. Please ty again later." });
-          res.json(token);
-        }
-      );
+      let token = jwt.sign(payload, process.env.JWT_SECRET, {
+        expiresIn: process.env.JWT_EXPIRATION,
+      });
+      res.json({ token: token, user: payload.user });
     } catch (error) {
       return res
         .status(500)
@@ -83,18 +75,10 @@ router.post("/login", async (req: Request, res: Response) => {
           admin: user.admin,
         },
       };
-      jwt.sign(
-        payload,
-        process.env.JWT_SECRET,
-        { expiresIn: process.env.JWT_EXPIRATION },
-        (err, token) => {
-          if (err)
-            return res
-              .status(500)
-              .json({ error: "Internal server error. Please ty again later." });
-          res.json(token);
-        }
-      );
+      let token = jwt.sign(payload, process.env.JWT_SECRET, {
+        expiresIn: process.env.JWT_EXPIRATION,
+      });
+      res.json({ token: token, user: payload.user });
     } catch (error) {
       return res
         .status(500)
