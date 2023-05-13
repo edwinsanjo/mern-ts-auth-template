@@ -1,44 +1,37 @@
 import { useNavigate } from "react-router-dom";
-import React, { useContext, useState } from "react";
-import { useTitle } from "../utils/changeTitle";
+import React, { useContext, useEffect, useState } from "react";
+
+import { useTitle } from "../../hooks/useChangeTitle";
 import { toast } from 'react-toastify';
-import axios from 'axios'
-import { authContext } from "../context/authContext";
+
+import { useUser } from "../../hooks/useUserFunctions"
+import { UserContext } from "../../context/userContext";
 
 export const LoginPage = () => {
     useTitle("Login")
-    const navigate = useNavigate()
+    let { logIn } = useUser()
+    let navigate = useNavigate()
+    let { user } = useContext(UserContext)
 
-    const [showPassword, setShowPassword] = useState(false)
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const { user, setUser }: any = useContext(authContext)
+    const [showPassword, setShowPassword] = useState<boolean>(false)
+    const [email, setEmail] = useState<string>("")
+    const [password, setPassword] = useState<string>("")
+
+    useEffect(() => {
+        if (user.isLoggedIn) return navigate("/")
+    }, [])
 
     const submitHandler = async () => {
         if (!email) return toast.error("Email Not Found")
         if (!password) return toast.error("Password Not Found")
+        logIn(email, password).then(() => {
+            navigate("/")
+            console.log("success");
+        }, (err) => {
+            console.log(err);
+            toast.error(err.toString())
 
-        try {
-            await axios.post("/auth/login", {
-                email,
-                password
-            }).then(({ data }) => {
-                if (data) {
-                    localStorage.setItem("token", data.token)
-                    setUser({
-                        isLoggedIn: true,
-                        token: data,
-                        user: data.user,
-                    })
-                    navigate("/")
-                } else navigate("/login")
-            }, (err) => {
-                toast.error(err.response.data.error)
-            })
-        } catch (error) {
-            toast.error("some error occured. please try again later")
-            console.log(error);
-        }
+        })
     }
 
     return (

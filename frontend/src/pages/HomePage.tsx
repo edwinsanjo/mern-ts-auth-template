@@ -1,11 +1,9 @@
 import { Link } from "react-router-dom";
 import React from "react";
-import { useTitle } from "../utils/changeTitle";
-import { authContext } from "../context/authContext";
+import { useTitle } from "../hooks/useChangeTitle";
+import { UserContext } from "../context/userContext";
 export const HomePage = () => {
-    const { user }: any = React.useContext(authContext);
-    console.log("times");
-
+    const { setUser,user } = React.useContext(UserContext);
 
     useTitle("New Title")
     return (

@@ -1,12 +1,12 @@
 
 import React, { useEffect } from "react";
-import { useTitle } from "../utils/changeTitle";
-import { authContext } from "../context/authContext";
+import { useTitle } from "../hooks/useChangeTitle";
+import { UserContext } from "../context/userContext";
 import { useNavigate } from "react-router-dom";
 
 export const ProfilePage = () => {
     const navigate = useNavigate()
-    const { user }: any = React.useContext(authContext)
+    const { user } = React.useContext(UserContext)
     useEffect(() => {
         if (user.isLoggedIn === false) return navigate("/login")
     }, [])
